@@ -110,4 +110,7 @@ items.forEach((item) => {
 	listElement.append(taskElement);
 });
 
+localStorage.removeItem('tasks');
+
+
 
