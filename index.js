@@ -24,26 +24,25 @@ function loadTasks() {
 
 
 function createItem(item) {
-	const template = document.getElementById("to-do__item-template");
-	// const clone = template.content.querySelector(".to-do__item").cloneNode(true);
 	const clone = template.content.cloneNode(true);
 
-  const textElement = clone.querySelector(".to-do__item-text");
-  const deleteButton = clone.querySelector(".to-do__item-button_type_delete");
-  const duplicateButton = clone.querySelector(".to-do__item-button_type_duplicate");
-  const editButton = clone.querySelector(".to-do__item-button_type_edit");
+	const itemElement = clone.querySelector('.to-do__item');
+	const textElement = clone.querySelector('.to-do__item-text');
+	const deleteButton = clone.querySelector('.to-do__item-button_type_delete');
+	const duplicateButton = clone.querySelector('.to-do__item-button_type_duplicate');
+	const editButton = clone.querySelector('.to-do__item-button_type_edit');
 
-	textElement.textContent = item;
+	textElement.textContent = String(item); // safety guard
 
-	// 🗑 Delete task
+
 	deleteButton.addEventListener('click', () => {
-		clone.querySelector('.to-do__item').remove();
+		itemElement.remove();
 
 		const items = getTasksFromDOM();
 		saveTasks(items);
 	});
 
-	// 📄 Duplicate task
+
 	duplicateButton.addEventListener('click', () => {
 		const itemName = textElement.textContent;
 
@@ -54,7 +53,7 @@ function createItem(item) {
 		saveTasks(items);
 	});
 
-	// ✏️ Edit task (extra task)
+
 	editButton.addEventListener('click', () => {
 		textElement.setAttribute('contenteditable', 'true');
 		textElement.focus();
@@ -68,8 +67,8 @@ function createItem(item) {
 	});
 
 	return clone;
-
 }
+
 
 function getTasksFromDOM() {
 	const itemsNamesElements = document.querySelectorAll('.to-do__item-text');
